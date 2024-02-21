@@ -1,14 +1,19 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const redRange = document.getElementById("redRange");
-    const greenRange = document.getElementById("greenRange");
-    const blueRange = document.getElementById("blueRange");
+    const redInput = document.getElementById("redInput");
+    const greenInput = document.getElementById("greenInput");
+    const blueInput = document.getElementById("blueInput");
     const colorPreview = document.getElementById("colorPreview");
     const hexCode = document.getElementById("hexCode");
 
     function updateColorPreview() {
-        const redValue = redRange.value;
-        const greenValue = greenRange.value;
-        const blueValue = blueRange.value;
+        const redValue = parseInt(redInput.value);
+        const greenValue = parseInt(greenInput.value);
+        const blueValue = parseInt(blueInput.value);
+
+        if (isNaN(redValue) || isNaN(greenValue) || isNaN(blueValue)) {
+            return;
+        }
+
         const color = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
         colorPreview.style.backgroundColor = color;
         hexCode.textContent = rgbToHex(redValue, greenValue, blueValue);
@@ -23,9 +28,9 @@ document.addEventListener("DOMContentLoaded", function() {
         return hex.length == 1 ? "0" + hex : hex;
     }
 
-    redRange.addEventListener("input", updateColorPreview);
-    greenRange.addEventListener("input", updateColorPreview);
-    blueRange.addEventListener("input", updateColorPreview);
+    redInput.addEventListener("input", updateColorPreview);
+    greenInput.addEventListener("input", updateColorPreview);
+    blueInput.addEventListener("input", updateColorPreview);
 
     // Llama a la función una vez para inicializar la vista previa del color
     updateColorPreview();
